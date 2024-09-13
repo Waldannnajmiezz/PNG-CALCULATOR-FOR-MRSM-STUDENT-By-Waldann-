@@ -3,127 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Purata Nilai Gred MRSM</title>
+    <title>Kalkulator Purata Nilai Gred MRSM 🎓</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 20px;
         }
         .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
         }
         input {
-            margin-bottom: 10px;
-            padding: 5px;
             width: 100%;
+            padding: 10px;
+            margin: 5px 0;
         }
         button {
-            padding: 10px;
             background-color: #4CAF50;
             color: white;
+            padding: 10px;
             border: none;
             cursor: pointer;
             width: 100%;
+            margin-top: 20px;
         }
         button:hover {
             background-color: #45a049;
         }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h2>Kalkulator Purata Nilai Gred MRSM 🎓</h2>
+        <form id="gradeForm">
+            <label>Adakah ini Ujian Formatif?</label>
+            <select id="ujian">
+                <option value="Ya">Ya</option>
+                <option value="Tidak">Tidak</option>
+            </select>
 
-<div class="container">
-    <h1>Kalkulator Purata Nilai Gred MRSM 🎓</h1>
-    <p>Sila isi maklumat berikut:</p>
+            <label>Sila Masukkan Nama Pendek Anda:</label>
+            <input type="text" id="nama" required>
 
-    <label for="nama">Nama Pendek Anda:</label>
-    <input type="text" id="nama" placeholder="Masukkan nama pendek">
+            <label>Sila Masukkan Markah BM:</label>
+            <input type="number" id="bm" required>
 
-    <label for="melayu">Markah BM:</label>
-    <input type="number" id="melayu" placeholder="Masukkan markah BM">
+            <label>Sila Masukkan Markah BI:</label>
+            <input type="number" id="bi" required>
 
-    <label for="inggeris">Markah BI:</label>
-    <input type="number" id="inggeris" placeholder="Masukkan markah BI">
+            <label>Sila Masukkan Markah MT:</label>
+            <input type="number" id="mt" required>
 
-    <label for="math">Markah MT:</label>
-    <input type="number" id="math" placeholder="Masukkan markah MT">
+            <label>Sila Masukkan Markah SN:</label>
+            <input type="number" id="sn" required>
 
-    <label for="sci">Markah SN:</label>
-    <input type="number" id="sci" placeholder="Masukkan markah SN">
+            <label>Sila Masukkan Markah RBT:</label>
+            <input type="number" id="rbt" required>
 
-    <label for="reka">Markah RBT:</label>
-    <input type="number" id="reka" placeholder="Masukkan markah RBT">
+            <label>Sila Masukkan Markah PAI:</label>
+            <input type="number" id="pai" required>
 
-    <label for="islam">Markah PAI:</label>
-    <input type="number" id="islam" placeholder="Masukkan markah PAI">
+            <label>Sila Masukkan Markah Sejarah:</label>
+            <input type="number" id="sej" required>
 
-    <label for="sj">Markah Sejarah:</label>
-    <input type="number" id="sj" placeholder="Masukkan markah Sejarah">
+            <label>Sila Masukkan Markah Geografi:</label>
+            <input type="number" id="geo" required>
 
-    <label for="geog">Markah Geografi:</label>
-    <input type="number" id="geog" placeholder="Masukkan markah Geografi">
+            <button type="button" onclick="calculate()">Kira PNG</button>
+        </form>
 
-    <button onclick="calculatePNG()">Kira PNG</button>
+        <div class="result" id="result"></div>
+    </div>
 
-    <h2 id="result"></h2>
-</div>
-
-<script>
-    function getGrade(mark) {
-        if (mark >= 80) return 4.00;
-        else if (mark >= 75) return 3.75;
-        else if (mark >= 70) return 3.50;
-        else if (mark >= 65) return 3.25;
-        else if (mark >= 60) return 3.00;
-        else if (mark >= 55) return 2.75;
-        else if (mark >= 50) return 2.50;
-        else if (mark >= 45) return 2.25;
-        else if (mark >= 40) return 2.00;
-        else if (mark >= 35) return 1.00;
-        else return 0.00;
-    }
-
-    function calculatePNG() {
-        const nama = document.getElementById("nama").value;
-        const melayu = parseFloat(document.getElementById("melayu").value);
-        const inggeris = parseFloat(document.getElementById("inggeris").value);
-        const math = parseFloat(document.getElementById("math").value);
-        const sci = parseFloat(document.getElementById("sci").value);
-        const reka = parseFloat(document.getElementById("reka").value);
-        const islam = parseFloat(document.getElementById("islam").value);
-        const sj = parseFloat(document.getElementById("sj").value);
-        const geog = parseFloat(document.getElementById("geog").value);
-
-        // Calculate GPA
-        const bm = getGrade(melayu) * 5;
-        const bi = getGrade(inggeris) * 5;
-        const mt = getGrade(math) * 5;
-        const sn = getGrade(sci) * 5;
-        const rbt = getGrade(reka) * 4;
-        const pai = getGrade(islam) * 4;
-        const sej = getGrade(sj) * 3;
-        const geo = getGrade(geog) * 3;
-
-        const total = bm + bi + mt + sn + rbt + pai + sej + geo;
-        const png = total / 34;
-
-        let message = `PNG anda untuk Ujian Setara Semester ini ialah ${png.toFixed(2)}. `;
-        if (png === 4.00) {
-            message += `Tahniah ${nama}!, Anda mendapat pointer 4.00. Kekalkan prestasi anda.`;
-        } else if (png >= 3.50) {
-            message += `Tahniah ${nama}, teruskan usaha anda.`;
-        } else if (png >= 3.00) {
-            message += `Anda sudah lakukan yang terbaik, ${nama}! Cuba Lagi dalam ujian seterusnya.`;
-        } else {
-            message += `Jangan putus asa, ${nama}. Teruskan berusaha dengan lebih gigih.`;
+    <script>
+        function calculateGrade(mark) {
+            if (mark >= 80) return 4.00;
+            if (mark >= 75) return 3.75;
+            if (mark >= 70) return 3.50;
+            if (mark >= 65) return 3.25;
+            if (mark >= 60) return 3.00;
+            if (mark >= 55) return 2.75;
+            if (mark >= 50) return 2.50;
+            if (mark >= 45) return 2.25;
+            if (mark >= 40) return 2.00;
+            if (mark >= 35) return 1.00;
+            return 0.00;
         }
 
-        document.getElementById("result").innerText = message;
-    }
-</script>
+        function calculate() {
+            const nama = document.getElementById('nama').value;
+            const ujian = document.getElementById('ujian').value;
 
+            // Get subject marks
+            const bm = parseFloat(document.getElementById('bm').value);
+            const bi = parseFloat(document.getElementById('bi').value);
+            const mt = parseFloat(document.getElementById('mt').value);
+            const sn = parseFloat(document.getElementById('sn').value);
+            const rbt = parseFloat(document.getElementById('rbt').value);
+            const pai = parseFloat(document.getElementById('pai').value);
+            const sej = parseFloat(document.getElementById('sej').value);
+            const geo = parseFloat(document.getElementById('geo').value);
+
+            // Calculate grades
+            const bmGrade = calculateGrade(bm) * 5.00;
+            const biGrade = calculateGrade(bi) * 5.00;
+            const mtGrade = calculateGrade(mt) * 5.00;
+            const snGrade = calculateGrade(sn) * 5.00;
+            const rbtGrade = calculateGrade(rbt) * 4.00;
+            const paiGrade = calculateGrade(pai) * 4.00;
+            const sejGrade = calculateGrade(sej) * 3.00;
+            const geoGrade = calculateGrade(geo) * 3.00;
+
+            // Total points and average
+            const totalPoints = bmGrade + biGrade + mtGrade + snGrade + rbtGrade + paiGrade + sejGrade + geoGrade;
+            const totalCredits = 34; // Total credit hours
+
+            const purata = totalPoints / totalCredits;
+
+            // Display the result
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<p>PNG anda untuk Ujian ini ialah ${purata.toFixed(2)}</p>`;
+
+            // Motivation messages
+            if (purata === 4.00) {
+                resultDiv.innerHTML += `<p>Tahniah, ${nama}! Anda mendapat pointer 4.00. Kekalkan prestasi anda.</p>`;
+            } else if (purata >= 3.50) {
+                resultDiv.innerHTML += `<p>Tahniah, ${nama}! Teruskan usaha anda.</p>`;
+            } else if (purata >= 3.00) {
+                resultDiv.innerHTML += `<p>Anda sudah lakukan yang terbaik, ${nama}! Cuba lagi dalam ujian seterusnya.</p>`;
+            } else {
+                resultDiv.innerHTML += `<p>Jangan putus asa, ${nama}. Teruskan berusaha dengan lebih gigih.</p>`;
+            }
+        }
+    </script>
 </body>
 </html>
+
