@@ -48,6 +48,7 @@
 
             let total = bm + bi + mt + sn + rbt + pai + sej + geo + (additionalMarks || 0);
             let purata = total / totalSubjects;
+            document.getElementById("result").innerHTML = "PNG anda ialah: " + purata.toFixed(2);
 
 
             if (!isFormative) {
@@ -59,9 +60,10 @@
 
                 let total = bm + bi + mt + sn + rbt + pai + sej + geo + (additionalMarks || 0);
                 let purata = total / totalSubjects;
+                document.getElementById("result").innerHTML = "PNG anda ialah: " + purata.toFixed(2);
             }
             // Display result
-            document.getElementById("result").innerHTML = "PNG anda ialah: " + purata.toFixed(2);
+            //document.getElementById("result").innerHTML = "PNG anda ialah: " + purata.toFixed(2);
 
             // Motivational message
             let message = "";
