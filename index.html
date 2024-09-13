@@ -48,12 +48,11 @@
             let additionalMarks ="";
 
            
-         if (!isFormative) {
-                let Seni = getGPA(psv) * 2.00;
+            if (!isFormative) {
                 let Ask = getGPA(ask) * 2.00;
-                let totalSubjects = 38;
-                let additionalMarks = Ask + Seni;
-
+                let Seni = getGPA(psv) * 2.00;
+                totalSubjects = 38;
+                additionalMarks = Ask + Seni;
             }
 
             let total = bm + bi + mt + sn + rbt + pai + sej + geo + (additionalMarks || 0);
