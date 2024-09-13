@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Purata Nilai Gred MRSM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 100%;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Kalkulator Purata Nilai Gred MRSM 🎓</h1>
+    <p>Sila isi maklumat berikut:</p>
+
+    <label for="nama">Nama Pendek Anda:</label>
+    <input type="text" id="nama" placeholder="Masukkan nama pendek">
+
+    <label for="melayu">Markah BM:</label>
+    <input type="number" id="melayu" placeholder="Masukkan markah BM">
+
+    <label for="inggeris">Markah BI:</label>
+    <input type="number" id="inggeris" placeholder="Masukkan markah BI">
+
+    <label for="math">Markah MT:</label>
+    <input type="number" id="math" placeholder="Masukkan markah MT">
+
+    <label for="sci">Markah SN:</label>
+    <input type="number" id="sci" placeholder="Masukkan markah SN">
+
+    <label for="reka">Markah RBT:</label>
+    <input type="number" id="reka" placeholder="Masukkan markah RBT">
+
+    <label for="islam">Markah PAI:</label>
+    <input type="number" id="islam" placeholder="Masukkan markah PAI">
+
+    <label for="sj">Markah Sejarah:</label>
+    <input type="number" id="sj" placeholder="Masukkan markah Sejarah">
+
+    <label for="geog">Markah Geografi:</label>
+    <input type="number" id="geog" placeholder="Masukkan markah Geografi">
+
+    <button onclick="calculatePNG()">Kira PNG</button>
+
+    <h2 id="result"></h2>
+</div>
+
+<script>
+    function getGrade(mark) {
+        if (mark >= 80) return 4.00;
+        else if (mark >= 75) return 3.75;
+        else if (mark >= 70) return 3.50;
+        else if (mark >= 65) return 3.25;
+        else if (mark >= 60) return 3.00;
+        else if (mark >= 55) return 2.75;
+        else if (mark >= 50) return 2.50;
+        else if (mark >= 45) return 2.25;
+        else if (mark >= 40) return 2.00;
+        else if (mark >= 35) return 1.00;
+        else return 0.00;
+    }
+
+    function calculatePNG() {
+        const nama = document.getElementById("nama").value;
+        const melayu = parseFloat(document.getElementById("melayu").value);
+        const inggeris = parseFloat(document.getElementById("inggeris").value);
+        const math = parseFloat(document.getElementById("math").value);
+        const sci = parseFloat(document.getElementById("sci").value);
+        const reka = parseFloat(document.getElementById("reka").value);
+        const islam = parseFloat(document.getElementById("islam").value);
+        const sj = parseFloat(document.getElementById("sj").value);
+        const geog = parseFloat(document.getElementById("geog").value);
+
+        // Calculate GPA
+        const bm = getGrade(melayu) * 5;
+        const bi = getGrade(inggeris) * 5;
+        const mt = getGrade(math) * 5;
+        const sn = getGrade(sci) * 5;
+        const rbt = getGrade(reka) * 4;
+        const pai = getGrade(islam) * 4;
+        const sej = getGrade(sj) * 3;
+        const geo = getGrade(geog) * 3;
+
+        const total = bm + bi + mt + sn + rbt + pai + sej + geo;
+        const png = total / 34;
+
+        let message = `PNG anda untuk Ujian Setara Semester ini ialah ${png.toFixed(2)}. `;
+        if (png === 4.00) {
+            message += `Tahniah ${nama}!, Anda mendapat pointer 4.00. Kekalkan prestasi anda.`;
+        } else if (png >= 3.50) {
+            message += `Tahniah ${nama}, teruskan usaha anda.`;
+        } else if (png >= 3.00) {
+            message += `Anda sudah lakukan yang terbaik, ${nama}! Cuba Lagi dalam ujian seterusnya.`;
+        } else {
+            message += `Jangan putus asa, ${nama}. Teruskan berusaha dengan lebih gigih.`;
+        }
+
+        document.getElementById("result").innerText = message;
+    }
+</script>
+
+</body>
+</html>
