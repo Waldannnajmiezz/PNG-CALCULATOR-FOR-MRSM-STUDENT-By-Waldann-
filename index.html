@@ -46,16 +46,20 @@
             let totalSubjects = 34;
             let additionalMarks = "";
 
+            let total = bm + bi + mt + sn + rbt + pai + sej + geo + (additionalMarks || 0);
+            let purata = total / totalSubjects;
+
+
             if (!isFormative) {
                 let Ask = getGPA(ask) * 2.00;
                 let Seni = getGPA(psv) * 2.00;
                 totalSubjects = 38;
                 additionalMarks = Ask + Seni;
+            
+
+                let total = bm + bi + mt + sn + rbt + pai + sej + geo + (additionalMarks || 0);
+                let purata = total / totalSubjects;
             }
-
-            let total = bm + bi + mt + sn + rbt + pai + sej + geo + (additionalMarks || 0);
-            let purata = total / totalSubjects;
-
             // Display result
             document.getElementById("result").innerHTML = "PNG anda ialah: " + purata.toFixed(2);
 
