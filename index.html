@@ -43,8 +43,12 @@
             let sej = getGPA(sj) * 3.00;
             let geo = getGPA(geog) * 3.00;
 
-            let totalSubjects = 34;
-            let additionalMarks = "";
+            //let totalSubjects = 34;
+            //let additionalMarks = "";
+
+            if (isFormative) {
+                totalSubjects = 34;
+                additionalMarks ="";
 
             if (!isFormative) {
                 let Ask = getGPA(ask) * 2.00;
