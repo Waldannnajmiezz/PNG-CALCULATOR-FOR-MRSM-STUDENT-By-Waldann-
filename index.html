@@ -90,38 +90,39 @@
     <input type="text" id="nama">
 
     <h3>Masukkan Markah</h3>
-    <label for="melayu">BM:</label>
+    <label for="melayu">BM:<br></label>
     <input type="number" id="melayu"><br>
-    <label for="inggeris">BI:</label>
+    <label for="inggeris">BI:<br></label>
     <input type="number" id="inggeris"><br>
-    <label for="math">MT:</label>
+    <label for="math">MT:<br></label>
     <input type="number" id="math"><br>
-    <label for="sci">SN:</label>
+    <label for="sci">SN:<br></label>
     <input type="number" id="sci"><br>
-    <label for="reka">RBT:</label>
+    <label for="reka">RBT:<br></label>
     <input type="number" id="reka"><br>
-    <label for="islam">PAI:</label>
+    <label for="islam">PAI:<br></label>
     <input type="number" id="islam"><br>
-    <label for="sj">Sejarah:</label>
+    <label for="sj">Sejarah:<br></label>
     <input type="number" id="sj"><br>
-    <label for="geog">Geografi:</label>
+    <label for="geog">Geografi:<br></label>
     <input type="number" id="geog"><br>
 
     <!-- These fields will be hidden if it's a formative test -->
     <div id="extra-fields" style="display:none;">
-        <label for="psv">Seni:</label>
+        <label for="psv">PSV:<br></label>
         <input type="number" id="psv"><br>
-        <label for="ask">PJ:</label>
+        <label for="ask">PJ:<br></label>
         <input type="number" id="ask"><br>
     </div>
-
+   
     <br>
     <button onclick="calculatePNG(document.getElementById('formative-no').checked)">Kira PNG</button>
 
+    <ul><p><small><small>By: Waldannn</small></small></p></ul>
     <h3>Keputusan:</h3>
     <p id="result"></p>
     <p id="message"></p>
-    <p><small><small>By: Waldannn</small></small></p>
+
 
     <script>
         function toggleExtraFields(show) {
