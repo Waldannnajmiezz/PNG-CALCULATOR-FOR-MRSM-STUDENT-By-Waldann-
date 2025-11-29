@@ -5,174 +5,106 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kalkulator PNG MRSM (Upperform)</title>
 <style>
-    body {
-        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("bg.JPG");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        text-align: center;
-        font-family: Arial, sans-serif;
-        color: white;
-    }
-    h1 { margin-bottom: 5px; }
-    .section { margin: 15px 0; }
-    label { display: block; margin: 8px 0 3px 0; font-weight: normal; }
-    input[type="text"], input[type="number"] { padding: 5px; width: 120px; text-align: center; font-size: 16px; }
-    button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; }
+    body { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("bg.JPG"); background-size: cover; text-align: center; font-family: Arial, sans-serif; color: white;}
+    input[type="number"], input[type="text"] { width: 120px; text-align: center; margin-bottom:5px; }
+    button { padding: 8px 16px; font-size:16px; cursor:pointer; margin-top:10px; }
 </style>
 </head>
 <body>
-<h1><img src="MARA.png" style="width:33px;height:33px;"> Kalkulator PNG <img src="MRSM.png" style="width:38px;height:33px;"></h1>
-<h3>Upperform Student</h3>
-<p>Sila tulis mengikut ejaan yang betul dan tepat❗</p>
+<h1>Kalkulator PNG MRSM</h1>
 
-<div class="section">
-<label>Jenis ujian</label>
-<input type="radio" id="formative-no" name="formative" value="Tidak" checked onclick="toggleExtraFields(false)"> Ujian Formatif
-<input type="radio" id="formative-yes" name="formative" value="Ya" onclick="toggleExtraFields(true)"> Ujian Semester
+<div>
+    <label>Nama</label>
+    <input type="text" id="nama">
+</div>
+<div>
+    <label>BM</label>
+    <input type="number" id="melayu" min="0" max="100">
+</div>
+<div>
+    <label>BI</label>
+    <input type="number" id="inggeris" min="0" max="100">
+</div>
+<div>
+    <label>Math</label>
+    <input type="number" id="math" min="0" max="100">
+</div>
+<div>
+    <label>Add Math</label>
+    <input type="number" id="addmath" min="0" max="100">
+</div>
+<div>
+    <label>Fizik</label>
+    <input type="number" id="phy" min="0" max="100">
+</div>
+<div>
+    <label>Kimia</label>
+    <input type="number" id="chem" min="0" max="100">
+</div>
+<div>
+    <label>Bio / Prinsip</label>
+    <input type="number" id="bio" min="0" max="100">
+</div>
+<div>
+    <label>Sejarah</label>
+    <input type="number" id="sej" min="0" max="100">
+</div>
+<div>
+    <label>Pendidikan Islam</label>
+    <input type="number" id="islam" min="0" max="100">
+</div>
+<div>
+    <label>Pendidikan Jasmani</label>
+    <input type="number" id="pj" min="0" max="100">
 </div>
 
-<div class="section">
-<span>Sila masukkan nama anda:</span>
-<input type="text" id="nama" style="height:12px;">
-</div>
-
-<div class="section">
-<label for="melayu">Bahasa Melayu📚</label>
-<input type="number" id="melayu" style="height:12px;">
-<label for="inggeris">English📖</label>
-<input type="number" id="inggeris" style="height:12px;">
-<label for="islam">Pendidikan Islam🕌</label>
-<input type="number" id="islam" style="height:12px;">
-<label for="sej">Sejarah📜</label>
-<input type="number" id="sej" style="height:12px;">
-<label for="math">Matematik🧮</label>
-<input type="number" id="math" style="height:12px;">
-<label for="addmath">Matematik Tambahan🧮</label>
-<input type="number" id="addmath" style="height:12px;">
-<label for="phy">Fizik🔭</label>
-<input type="number" id="phy" style="height:12px;">
-<label for="chem">Kimia🧪</label>
-<input type="number" id="chem" style="height:12px;">
-<label for="bio">Biologi🧬/Prinsip Perakaunan💵</label>
-<input type="number" id="bio" style="height:12px; width:250px;">
-
-<div id="extra-fields" style="display:none;">
-<label for="pj">Pendidikan Jasmani⚽️</label>
-<input type="number" id="pj" style="height:12px;">
-</div>
-</div>
-
-<br>
-<button onclick="calculatePNG(document.getElementById('formative-no').checked)">Kira PNG🔎</button>
-
-<center>
-<ul><p><small><small>'MRSM Tepen' product<br>Waldann & Adlann</small></small></p></ul>
-<h3>Keputusan:</h3>
+<button onclick="calculateAndSend()">Kira & Submit</button>
 <p id="result"></p>
-<p id="message"></p>
-</center>
 
 <script>
-function toggleExtraFields(show) {
-    document.getElementById('extra-fields').style.display = show ? 'block' : 'none';
+function calculateGrade(score,type){
+    if(type==="BM"){if(score>=85)return 4;if(score>=80)return 3.67;if(score>=75)return 3.33;if(score>=70)return 3;if(score>=65)return 2.67;if(score>=60)return 2.33;if(score>=55)return 2;if(score>=50)return 1.67;if(score>=45)return 1.33;if(score>=40)return 1;return 0;}
+    else if(type==="BI"){if(score>=80)return 4;if(score>=75)return 3.67;if(score>=70)return 3.33;if(score>=65)return 3;if(score>=60)return 2.67;if(score>=55)return 2.33;if(score>=50)return 2;if(score>=45)return 1.67;if(score>=40)return 1.33;if(score>=35)return 1;return 0;}
+    else if(type==="AddMath"){if(score>=75)return 4;if(score>=65)return 3.67;if(score>=60)return 3.33;if(score>=55)return 3;if(score>=50)return 2.67;if(score>=45)return 2.33;if(score>=40)return 2;if(score>=35)return 1.67;if(score>=30)return 1.33;if(score>=25)return 1;return 0;}
+    else{if(score>=75)return 4;if(score>=70)return 3.67;if(score>=65)return 3.33;if(score>=60)return 3;if(score>=55)return 2.67;if(score>=50)return 2.33;if(score>=45)return 2;if(score>=40)return 1.67;if(score>=35)return 1.33;if(score>=30)return 1;return 0;}
 }
 
-// Limit semua input number ke 0–100 & block huruf
-document.querySelectorAll('input[type="number"]').forEach(input => {
-    input.addEventListener('input', () => {
-        input.value = input.value.replace(/[^0-9]/g, '');
-        if(input.value > 100) input.value = 100;
-        if(input.value < 0) input.value = 0;
-    });
-});
-
-function calculatePNG(isFormative) {
+function calculateAndSend(){
     let nama = document.getElementById("nama").value.trim();
-    
-    let inputs = ["melayu","inggeris","math","addmath","phy","chem","bio","sej","islam"];
-    if(!isFormative) inputs.push("pj"); // tambah PJ kalau Semester
+    if(!nama){ alert("Sila masukkan nama!"); return;}
 
-    for(let id of inputs){
-        if(document.getElementById(id).value === "") {
-            alert("Sila masukkan semua markah sebelum kira PNG!");
-            return;
-        }
-    }
+    let melayu = parseFloat(document.getElementById("melayu").value) || 0;
+    let inggeris = parseFloat(document.getElementById("inggeris").value) || 0;
+    let math = parseFloat(document.getElementById("math").value) || 0;
+    let addmath = parseFloat(document.getElementById("addmath").value) || 0;
+    let phy = parseFloat(document.getElementById("phy").value) || 0;
+    let chem = parseFloat(document.getElementById("chem").value) || 0;
+    let bio = parseFloat(document.getElementById("bio").value) || 0;
+    let sej = parseFloat(document.getElementById("sej").value) || 0;
+    let islam = parseFloat(document.getElementById("islam").value) || 0;
+    let pj = parseFloat(document.getElementById("pj").value) || 0;
 
-    let melayu = parseFloat(document.getElementById("melayu").value);
-    let inggeris = parseFloat(document.getElementById("inggeris").value);
-    let math = parseFloat(document.getElementById("math").value);
-    let addmath = parseFloat(document.getElementById("addmath").value);
-    let phy = parseFloat(document.getElementById("phy").value);
-    let chem = parseFloat(document.getElementById("chem").value);
-    let bio = parseFloat(document.getElementById("bio").value);
-    let sej = parseFloat(document.getElementById("sej").value);
-    let islam = parseFloat(document.getElementById("islam").value);
-    let pj = isFormative ? 0 : parseFloat(document.getElementById("pj").value);
+    let total = calculateGrade(melayu,"BM")*6 + calculateGrade(inggeris,"BI")*6 + calculateGrade(math,"BI")*6 + calculateGrade(addmath,"AddMath")*6 + calculateGrade(phy,"Phy")*6 + calculateGrade(chem,"Phy")*6 + calculateGrade(bio,"Phy")*6 + calculateGrade(sej,"Sej")*4 + calculateGrade(islam,"Sej")*5 + calculateGrade(pj,"Sej")*2;
+    let purata = total/53;
 
-    function gradeBM(score){if(score>=85)return 4;if(score>=80)return 3.67;if(score>=75)return 3.33;if(score>=70)return 3;if(score>=65)return 2.67;if(score>=60)return 2.33;if(score>=55)return 2;if(score>=50)return 1.67;if(score>=45)return 1.33;if(score>=40)return 1;return 0;}
-    function gradeBI(score){if(score>=80)return 4;if(score>=75)return 3.67;if(score>=70)return 3.33;if(score>=65)return 3;if(score>=60)return 2.67;if(score>=55)return 2.33;if(score>=50)return 2;if(score>=45)return 1.67;if(score>=40)return 1.33;if(score>=35)return 1;return 0;}
-    function gradeMath(score){return gradeBI(score);}
-    function gradeAddMath(score){if(score>=75)return 4;if(score>=65)return 3.67;if(score>=60)return 3.33;if(score>=55)return 3;if(score>=50)return 2.67;if(score>=45)return 2.33;if(score>=40)return 2;if(score>=35)return 1.67;if(score>=30)return 1.33;if(score>=25)return 1;return 0;}
-    function gradePhy(score){if(score>=75)return 4;if(score>=70)return 3.67;if(score>=65)return 3.33;if(score>=60)return 3;if(score>=55)return 2.67;if(score>=50)return 2.33;if(score>=45)return 2;if(score>=40)return 1.67;if(score>=35)return 1.33;if(score>=30)return 1;return 0;}
-    function gradeChem(score){return gradePhy(score);}
-    function gradeBio(score){return gradePhy(score);}
-    function gradeSej(score){if(score>=85)return 4;if(score>=80)return 3.67;if(score>=75)return 3.33;if(score>=70)return 3;if(score>=65)return 2.67;if(score>=60)return 2.33;if(score>=55)return 2;if(score>=50)return 1.67;if(score>=45)return 1.33;if(score>=40)return 1;return 0;}
-    function gradeIslam(score){return gradeSej(score);}
-    function gradePJ(score){return gradeSej(score);}
+    document.getElementById("result").innerText = "PNG anda: "+purata.toFixed(3);
 
-    let Bm = gradeBM(melayu)*6;
-    let Bi = gradeBI(inggeris)*6;
-    let Mt = gradeMath(math)*6;
-    let Admt = gradeAddMath(addmath)*6;
-    let Sic = gradePhy(phy)*6;
-    let Kim = gradeChem(chem)*6;
-    let Gy = gradeBio(bio)*6;
-    let Sj = gradeSej(sej)*4;
-    let Pi = gradeIslam(islam)*5;
-    let Pe = isFormative ? 0 : gradePJ(pj)*2;
+    // submit pakai fetch
+    let formData = new FormData();
+    formData.append("entry.246583447", nama);
+    formData.append("entry.1081059050", melayu);
+    formData.append("entry.657450509", inggeris);
+    formData.append("entry.1124486425", math);
+    formData.append("entry.771728114", addmath);
+    formData.append("entry.700157771", phy);
+    formData.append("entry.482638229", chem);
+    formData.append("entry.1508340325", bio);
+    formData.append("entry.1146377368", sej);
+    formData.append("entry.776270194", islam);
+    formData.append("entry.1121261084", pj);
+    formData.append("entry.1811812483", purata.toFixed(3));
 
-    let total = Bm+Bi+Mt+Admt+Sic+Kim+Gy+Sj+Pi+Pe;
-    let purata = isFormative ? total/51 : total/53;
-
-    document.getElementById("result").innerHTML = "PNG anda ialah: " + purata.toFixed(3);
-
-    let message = "";
-    if(purata===4){message="Tahniah "+nama+"!, Anda mendapat pointer 4.00. Kekalkan prestasi anda.";}
-    else if(purata>=3.50){message="Tahniah "+nama+"!, Teruskan usaha anda.";}
-    else if(purata>=3){message="Anda sudah lakukan yang terbaik, "+nama+"! Cuba Lagi dalam ujian seterusnya.";}
-    else{message="Jangan putus asa, "+nama+". Teruskan berusaha dengan lebih gigih.";}
-    document.getElementById("message").innerHTML = message;
-
-    let purataStr = purata.toFixed(3);
-    let pjValue = isFormative ? 0 : pj;
-
-    sendToGoogleForm(
-        nama, melayu, inggeris, math, addmath, phy, chem, bio, sej, islam, pjValue, purataStr
-    );
-}
-
-// Auto-submit to Google Form reliable
-function sendToGoogleForm(nama, melayu, inggeris, math, addmath, phy, chem, bio, sej, islam, pj, png) {
-    const url = "https://docs.google.com/forms/d/e/1FAIpQLScV0Qx6YiopJzlvEoxV7wLQmPPIbXXlJioZJCDZyjjkl2Gl2g/formResponse";
-    const params = new URLSearchParams();
-    params.append("entry.246583447", nama);
-    params.append("entry.1081059050", melayu);
-    params.append("entry.657450509", inggeris);
-    params.append("entry.1124486425", math);
-    params.append("entry.771728114", addmath);
-    params.append("entry.700157771", phy);
-    params.append("entry.482638229", chem);
-    params.append("entry.1508340325", bio);
-    params.append("entry.1146377368", sej);
-    params.append("entry.776270194", islam);
-    params.append("entry.1121261084", pj);
-    params.append("entry.1811812483", png);
-
-    const img = new Image();
-    img.src = url + "?" + params.toString();
-    img.onload = img.onerror = () => { console.log("Data dihantar ke Google Form ✅"); };
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLScV0Qx6YiopJzlvEoxV7wLQmPPIbXXlJioZJCDZyjjkl2Gl2g/formResponse", { method:"POST", mode:"no-cors", body: formData });
 }
 </script>
 </body>
