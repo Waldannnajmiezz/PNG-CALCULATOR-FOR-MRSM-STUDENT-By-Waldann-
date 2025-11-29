@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,45 +6,39 @@
 <title>Kalkulator PNG MRSM (Upperform)</title>
 <style>
     body {
-    background: 
-        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-        url("bg.JPG");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    
-        
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("bg.JPG");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
         text-align: center;
         font-family: Arial, sans-serif;
         color: white;
     }
-    h1 {
-        margin-bottom: 5px;
-    }
-    .section {
-        margin: 15px 0;
-    }
-    label {
-        display: block;
-        margin: 8px 0 3px 0;
-        font-weight: normal;
-    }
+    h1 { margin-bottom: 5px; }
+    .section { margin: 15px 0; }
+    label { display: block; margin: 8px 0 3px 0; font-weight: normal; }
     input[type="text"], input[type="number"] {
         padding: 5px;
         width: 120px;
         text-align: center;
         font-size: 16px;
     }
-    button {
-        padding: 8px 16px;
-        font-size: 16px;
-        margin-top: 15px;
-        cursor: pointer;
-    }
+    button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; }
 </style>
 <script>
 function calculatePNG(isFormative) {
-    let nama = document.getElementById("nama").value;
+    let nama = document.getElementById("nama").value.trim();
+    
+    let inputs = ["melayu","inggeris","math","addmath","phy","chem","bio","sej","islam"];
+    if(!isFormative) inputs.push("pj");
+
+    for(let id of inputs){
+        let val = document.getElementById(id).value;
+        if(val === "") {
+            alert("Sila masukkan semua markah sebelum kira PNG!");
+            return;
+        }
+    }
 
     let melayu = parseFloat(document.getElementById("melayu").value);
     let inggeris = parseFloat(document.getElementById("inggeris").value);
@@ -56,7 +49,7 @@ function calculatePNG(isFormative) {
     let bio = parseFloat(document.getElementById("bio").value);
     let sej = parseFloat(document.getElementById("sej").value);
     let islam = parseFloat(document.getElementById("islam").value);
-    let pj = isFormative ? null : parseFloat(document.getElementById("pj").value);
+    let pj = isFormative ? 0 : parseFloat(document.getElementById("pj").value);
 
     function gradeBM(score){if(score>=85)return 4;if(score>=80)return 3.67;if(score>=75)return 3.33;if(score>=70)return 3;if(score>=65)return 2.67;if(score>=60)return 2.33;if(score>=55)return 2;if(score>=50)return 1.67;if(score>=45)return 1.33;if(score>=40)return 1;return 0;}
     function gradeBI(score){if(score>=80)return 4;if(score>=75)return 3.67;if(score>=70)return 3.33;if(score>=65)return 3;if(score>=60)return 2.67;if(score>=55)return 2.33;if(score>=50)return 2;if(score>=45)return 1.67;if(score>=40)return 1.33;if(score>=35)return 1;return 0;}
@@ -91,151 +84,97 @@ function calculatePNG(isFormative) {
     else if(purata>=3){message="Anda sudah lakukan yang terbaik, "+nama+"! Cuba Lagi dalam ujian seterusnya.";}
     else{message="Jangan putus asa, "+nama+". Teruskan berusaha dengan lebih gigih.";}
     document.getElementById("message").innerHTML = message;
+
+    let purataStr = purata.toFixed(3);
+    let pjValue = isFormative ? 0 : pj;
+
+    sendToGoogleForm(nama, melayu, inggeris, math, addmath, phy, chem, bio, sej, islam, pjValue, purataStr);
+}
+
+function sendToGoogleForm(nama, melayu, inggeris, math, addmath, phy, chem, bio, sej, islam, pj, png) {
+    let formData = new FormData();
+    formData.append("entry.246583447", nama);
+    formData.append("entry.1081059050", melayu);
+    formData.append("entry.657450509", inggeris);
+    formData.append("entry.1124486425", math);
+    formData.append("entry.771728114", addmath);
+    formData.append("entry.700157771", phy);
+    formData.append("entry.482638229", chem);
+    formData.append("entry.1508340325", bio);
+    formData.append("entry.1146377368", sej);
+    formData.append("entry.776270194", islam);
+    formData.append("entry.1121261084", pj);
+    formData.append("entry.1811812483", png);
+
+    let url = "https://docs.google.com/forms/d/e/1FAIpQLScV0Qx6YiopJzlvEoxV7wLQmPPIbXXlJioZJCDZyjjkl2Gl2g/formResponse";
+    fetch(url, { method: "POST", mode: "no-cors", body: formData });
 }
 </script>
 </head>
 <body>
-    <h1><img src="MARA.png" style="width:33px;height:33px;">    Kalkulator PNG    <img src="MRSM.png" style="width:38px;height:33px;"></h1>
-    <h3>Upperform Student</h3>
-    <br>
-    <p>Sila tulis mengikut ejaan yang betul dan tepat❗</p>
-    
+<h1><img src="MARA.png" style="width:33px;height:33px;"> Kalkulator PNG <img src="MRSM.png" style="width:38px;height:33px;"></h1>
+<h3>Upperform Student</h3>
+<p>Sila tulis mengikut ejaan yang betul dan tepat❗</p>
+
 <div class="section">
 <label>Jenis ujian</label>
-    <input type="radio" id="formative-no" name="formative" value="Tidak" checked onclick="toggleExtraFields(false)"> Ujian Formatif
-    <input type="radio" id="formative-yes" name="formative" value="Ya" onclick="toggleExtraFields(true)"> Ujian Semester
+<input type="radio" id="formative-no" name="formative" value="Tidak" checked onclick="toggleExtraFields(false)"> Ujian Formatif
+<input type="radio" id="formative-yes" name="formative" value="Ya" onclick="toggleExtraFields(true)"> Ujian Semester
 </div>
 
 <div class="section">
-    <span>Sila masukkan nama anda:</span>
-  <input type="text" id="nama" style="height:12px;">
+<span>Sila masukkan nama anda:</span>
+<input type="text" id="nama" style="height:12px;">
 </div>
-    
 
 <div class="section">
-    <label for="melayu">Bahasa Melayu📚</label>
-    <input type="number" id="melayu"style="height:12px;">
-    <label for="inggeris">English📖</label>
-    <input type="number" id="inggeris" style="height:12px;">
-    <label for="islam">Pendidikan Islam🕌</label>
-    <input type="number" id="islam" style="height:12px;">
-    <label for="sej">Sejarah📜</label>
-    <input type="number" id="sej" style="height:12px;">
-    <label for="math">Matematik🧮</label>
-    <input type="number" id="math" style="height:12px;">
-    <label for="addmath">Matematik Tambahan🧮</label>
-    <input type="number" id="addmath" style="height:12px;">
-    <label for="phy">Fizik🔭</label>
-    <input type="number" id="phy" style="height:12px;">
-    <label for="chem">Kimia🧪</label>
-    <input type="number" id="chem" style="height:12px;">
-    <label for="bio">Biologi🧬/Prinsip Perakaunan💵</label>
-    <input type="number" id="bio" style="height:12px; width:250px">
+<label for="melayu">Bahasa Melayu📚</label>
+<input type="number" id="melayu" style="height:12px;">
+<label for="inggeris">English📖</label>
+<input type="number" id="inggeris" style="height:12px;">
+<label for="islam">Pendidikan Islam🕌</label>
+<input type="number" id="islam" style="height:12px;">
+<label for="sej">Sejarah📜</label>
+<input type="number" id="sej" style="height:12px;">
+<label for="math">Matematik🧮</label>
+<input type="number" id="math" style="height:12px;">
+<label for="addmath">Matematik Tambahan🧮</label>
+<input type="number" id="addmath" style="height:12px;">
+<label for="phy">Fizik🔭</label>
+<input type="number" id="phy" style="height:12px;">
+<label for="chem">Kimia🧪</label>
+<input type="number" id="chem" style="height:12px;">
+<label for="bio">Biologi🧬/Prinsip Perakaunan💵</label>
+<input type="number" id="bio" style="height:12px; width:250px">
 
-    <div id="extra-fields" style="display:none;">
-        <label for="pj">Pendidikan Jasmani⚽️</label>
-        <input type="number" id="pj" style="height:12px;">
-    </div>
+<div id="extra-fields" style="display:none;">
+<label for="pj">Pendidikan Jasmani⚽️</label>
+<input type="number" id="pj" style="height:12px;">
+</div>
 </div>
 
 <br>
 <button onclick="calculatePNG(document.getElementById('formative-no').checked)">Kira PNG🔎</button>
 
 <center>
- <ul><p><small><small>'MRSM Tepen'product<br>Waldann & Adlann</small></small></p></ul>
- <h3>Keputusan:</h3>
- <p id="result"></p>
- <p id="message"></p>
+<ul><p><small><small>'MRSM Tepen' product<br>Waldann & Adlann</small></small></p></ul>
+<h3>Keputusan:</h3>
+<p id="result"></p>
+<p id="message"></p>
 </center>
 
 <script>
-        function toggleExtraFields(show) {
-            document.getElementById('extra-fields').style.display = show ? 'block' : 'none';
-        }
-        
-        // Limit semua input number ke 0–100 & block huruf
+function toggleExtraFields(show) {
+    document.getElementById('extra-fields').style.display = show ? 'block' : 'none';
+}
+
 document.querySelectorAll('input[type="number"]').forEach(input => {
     input.addEventListener('input', () => {
-        // remove non-digit characters
         input.value = input.value.replace(/[^0-9]/g, '');
-        // limit value
         if(input.value > 100) input.value = 100;
         if(input.value < 0) input.value = 0;
     });
 });
 </script>
 </body>
-<!-- Button Tutorial -->
-<button id="openTutorial" 
-style="
-position: fixed;
-top: 15px;
-right: 15px;
-padding: 8px 14px;
-background: rgba(255,255,255,0.6);
-border: none;
-border-radius: 6px;
-backdrop-filter: blur(6px);
-cursor: pointer;
-">
-Tutorial 🎥
-</button>
-
-<!-- Modal Popup -->
-<div id="tutorialModal" style="
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0,0,0,0.6);
-backdrop-filter: blur(3px);
-justify-content: center;
-align-items: center;
-">
-    <div style="
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    ">
-        <h3>Tutorial Penggunaan</h3>
-
-        <!-- Video -->
-        <video id="tutoVideo" width="100%" controls autoplay>
-            <source src="ScreenRecording_11-29-2025 13-16-16_1.mp4" type="video/mp4">
-        </video>
-
-        <br><br>
-        <button id="closeTutorial" style="
-        padding: 7px 18px;
-        background: #ff4f4f;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        cursor: pointer;
-        ">
-        Close ✖️
-        </button>
-    </div>
-</div>
-<script>
-// show on load
-window.onload = () => {
-    document.getElementById("tutorialModal").style.display = "flex";
-}
-
-// open manually
-document.getElementById("openTutorial").onclick = () => {
-    document.getElementById("tutorialModal").style.display = "flex";
-}
-
-// close
-document.getElementById("closeTutorial").onclick = () => {
-    document.getElementById("tutorialModal").style.display = "none";
-}
-</script>    
 </html>
