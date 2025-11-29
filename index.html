@@ -17,24 +17,84 @@
     h1 { margin-bottom: 5px; }
     .section { margin: 15px 0; }
     label { display: block; margin: 8px 0 3px 0; font-weight: normal; }
-    input[type="text"], input[type="number"] {
-        padding: 5px;
-        width: 120px;
-        text-align: center;
-        font-size: 16px;
-    }
+    input[type="text"], input[type="number"] { padding: 5px; width: 120px; text-align: center; font-size: 16px; }
     button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; }
 </style>
+</head>
+<body>
+<h1><img src="MARA.png" style="width:33px;height:33px;"> Kalkulator PNG <img src="MRSM.png" style="width:38px;height:33px;"></h1>
+<h3>Upperform Student</h3>
+<p>Sila tulis mengikut ejaan yang betul dan tepat❗</p>
+
+<div class="section">
+<label>Jenis ujian</label>
+<input type="radio" id="formative-no" name="formative" value="Tidak" checked onclick="toggleExtraFields(false)"> Ujian Formatif
+<input type="radio" id="formative-yes" name="formative" value="Ya" onclick="toggleExtraFields(true)"> Ujian Semester
+</div>
+
+<div class="section">
+<span>Sila masukkan nama anda:</span>
+<input type="text" id="nama" style="height:12px;">
+</div>
+
+<div class="section">
+<label for="melayu">Bahasa Melayu📚</label>
+<input type="number" id="melayu" style="height:12px;">
+<label for="inggeris">English📖</label>
+<input type="number" id="inggeris" style="height:12px;">
+<label for="islam">Pendidikan Islam🕌</label>
+<input type="number" id="islam" style="height:12px;">
+<label for="sej">Sejarah📜</label>
+<input type="number" id="sej" style="height:12px;">
+<label for="math">Matematik🧮</label>
+<input type="number" id="math" style="height:12px;">
+<label for="addmath">Matematik Tambahan🧮</label>
+<input type="number" id="addmath" style="height:12px;">
+<label for="phy">Fizik🔭</label>
+<input type="number" id="phy" style="height:12px;">
+<label for="chem">Kimia🧪</label>
+<input type="number" id="chem" style="height:12px;">
+<label for="bio">Biologi🧬/Prinsip Perakaunan💵</label>
+<input type="number" id="bio" style="height:12px; width:250px;">
+
+<div id="extra-fields" style="display:none;">
+<label for="pj">Pendidikan Jasmani⚽️</label>
+<input type="number" id="pj" style="height:12px;">
+</div>
+</div>
+
+<br>
+<button onclick="calculatePNG(document.getElementById('formative-no').checked)">Kira PNG🔎</button>
+
+<center>
+<ul><p><small><small>'MRSM Tepen' product<br>Waldann & Adlann</small></small></p></ul>
+<h3>Keputusan:</h3>
+<p id="result"></p>
+<p id="message"></p>
+</center>
+
 <script>
+function toggleExtraFields(show) {
+    document.getElementById('extra-fields').style.display = show ? 'block' : 'none';
+}
+
+// Limit semua input number ke 0–100 & block huruf
+document.querySelectorAll('input[type="number"]').forEach(input => {
+    input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^0-9]/g, '');
+        if(input.value > 100) input.value = 100;
+        if(input.value < 0) input.value = 0;
+    });
+});
+
 function calculatePNG(isFormative) {
     let nama = document.getElementById("nama").value.trim();
     
     let inputs = ["melayu","inggeris","math","addmath","phy","chem","bio","sej","islam"];
-    if(!isFormative) inputs.push("pj");
+    if(!isFormative) inputs.push("pj"); // tambah PJ kalau Semester
 
     for(let id of inputs){
-        let val = document.getElementById(id).value;
-        if(val === "") {
+        if(document.getElementById(id).value === "") {
             alert("Sila masukkan semua markah sebelum kira PNG!");
             return;
         }
@@ -88,93 +148,32 @@ function calculatePNG(isFormative) {
     let purataStr = purata.toFixed(3);
     let pjValue = isFormative ? 0 : pj;
 
-    sendToGoogleForm(nama, melayu, inggeris, math, addmath, phy, chem, bio, sej, islam, pjValue, purataStr);
+    sendToGoogleForm(
+        nama, melayu, inggeris, math, addmath, phy, chem, bio, sej, islam, pjValue, purataStr
+    );
 }
 
+// Auto-submit to Google Form reliable
 function sendToGoogleForm(nama, melayu, inggeris, math, addmath, phy, chem, bio, sej, islam, pj, png) {
-    let formData = new FormData();
-    formData.append("entry.246583447", nama);
-    formData.append("entry.1081059050", melayu);
-    formData.append("entry.657450509", inggeris);
-    formData.append("entry.1124486425", math);
-    formData.append("entry.771728114", addmath);
-    formData.append("entry.700157771", phy);
-    formData.append("entry.482638229", chem);
-    formData.append("entry.1508340325", bio);
-    formData.append("entry.1146377368", sej);
-    formData.append("entry.776270194", islam);
-    formData.append("entry.1121261084", pj);
-    formData.append("entry.1811812483", png);
+    const url = "https://docs.google.com/forms/d/e/1FAIpQLScV0Qx6YiopJzlvEoxV7wLQmPPIbXXlJioZJCDZyjjkl2Gl2g/formResponse";
+    const params = new URLSearchParams();
+    params.append("entry.246583447", nama);
+    params.append("entry.1081059050", melayu);
+    params.append("entry.657450509", inggeris);
+    params.append("entry.1124486425", math);
+    params.append("entry.771728114", addmath);
+    params.append("entry.700157771", phy);
+    params.append("entry.482638229", chem);
+    params.append("entry.1508340325", bio);
+    params.append("entry.1146377368", sej);
+    params.append("entry.776270194", islam);
+    params.append("entry.1121261084", pj);
+    params.append("entry.1811812483", png);
 
-    let url = "https://docs.google.com/forms/d/e/1FAIpQLScV0Qx6YiopJzlvEoxV7wLQmPPIbXXlJioZJCDZyjjkl2Gl2g/formResponse";
-    fetch(url, { method: "POST", mode: "no-cors", body: formData });
+    const img = new Image();
+    img.src = url + "?" + params.toString();
+    img.onload = img.onerror = () => { console.log("Data dihantar ke Google Form ✅"); };
 }
-</script>
-</head>
-<body>
-<h1><img src="MARA.png" style="width:33px;height:33px;"> Kalkulator PNG <img src="MRSM.png" style="width:38px;height:33px;"></h1>
-<h3>Upperform Student</h3>
-<p>Sila tulis mengikut ejaan yang betul dan tepat❗</p>
-
-<div class="section">
-<label>Jenis ujian</label>
-<input type="radio" id="formative-no" name="formative" value="Tidak" checked onclick="toggleExtraFields(false)"> Ujian Formatif
-<input type="radio" id="formative-yes" name="formative" value="Ya" onclick="toggleExtraFields(true)"> Ujian Semester
-</div>
-
-<div class="section">
-<span>Sila masukkan nama anda:</span>
-<input type="text" id="nama" style="height:12px;">
-</div>
-
-<div class="section">
-<label for="melayu">Bahasa Melayu📚</label>
-<input type="number" id="melayu" style="height:12px;">
-<label for="inggeris">English📖</label>
-<input type="number" id="inggeris" style="height:12px;">
-<label for="islam">Pendidikan Islam🕌</label>
-<input type="number" id="islam" style="height:12px;">
-<label for="sej">Sejarah📜</label>
-<input type="number" id="sej" style="height:12px;">
-<label for="math">Matematik🧮</label>
-<input type="number" id="math" style="height:12px;">
-<label for="addmath">Matematik Tambahan🧮</label>
-<input type="number" id="addmath" style="height:12px;">
-<label for="phy">Fizik🔭</label>
-<input type="number" id="phy" style="height:12px;">
-<label for="chem">Kimia🧪</label>
-<input type="number" id="chem" style="height:12px;">
-<label for="bio">Biologi🧬/Prinsip Perakaunan💵</label>
-<input type="number" id="bio" style="height:12px; width:250px">
-
-<div id="extra-fields" style="display:none;">
-<label for="pj">Pendidikan Jasmani⚽️</label>
-<input type="number" id="pj" style="height:12px;">
-</div>
-</div>
-
-<br>
-<button onclick="calculatePNG(document.getElementById('formative-no').checked)">Kira PNG🔎</button>
-
-<center>
-<ul><p><small><small>'MRSM Tepen' product<br>Waldann & Adlann</small></small></p></ul>
-<h3>Keputusan:</h3>
-<p id="result"></p>
-<p id="message"></p>
-</center>
-
-<script>
-function toggleExtraFields(show) {
-    document.getElementById('extra-fields').style.display = show ? 'block' : 'none';
-}
-
-document.querySelectorAll('input[type="number"]').forEach(input => {
-    input.addEventListener('input', () => {
-        input.value = input.value.replace(/[^0-9]/g, '');
-        if(input.value > 100) input.value = 100;
-        if(input.value < 0) input.value = 0;
-    });
-});
 </script>
 </body>
 </html>
