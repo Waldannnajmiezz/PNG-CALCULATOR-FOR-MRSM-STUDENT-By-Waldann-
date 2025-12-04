@@ -124,7 +124,27 @@ Feedback 📝
 <label for="chem">Chemistry🧪</label>
 <input type="number" id="chem" style="height:12px;">
 <label for="bio">Biology🧬/Prinsip Perakaunan💵</label>
-<input type="number" id="bio" style="height:12px; width:250px">
+<div class="section">
+  <select id="subjek" onchange="updatePlaceholder()">
+    <option value="" disabled selected>Pilih subjek</option>
+    <option value="bio">Biologi</option>
+    <option value="akaun">Prinsip Perakaunan</option>
+  </select>
+  <br><br>
+  <input type="number" id="markah" placeholder="Masukkan markah" style="height:12px; width:250px">
+</div>
+
+<script>
+function updatePlaceholder(){
+  const subjek = document.getElementById("subjek").value;
+  const input = document.getElementById("markah");
+  if(subjek === "bio"){
+    input.placeholder = "Masukkan markah Biologi";
+  } else if(subjek === "akaun"){
+    input.placeholder = "Masukkan markah Akaun";
+  }
+}
+</script>
 
 <div id="extra-fields" style="display:none;">
 
@@ -183,7 +203,7 @@ function calculatePNG(isFormative) {
     let addmath = parseFloat(document.getElementById("addmath").value);
     let phy = parseFloat(document.getElementById("phy").value);
     let chem = parseFloat(document.getElementById("chem").value);
-    let bio = parseFloat(document.getElementById("bio").value);
+    let bio = parseFloat(document.getElementById("markah").value);
     let sej = parseFloat(document.getElementById("sej").value);
     let islam = parseFloat(document.getElementById("islam").value);
 
@@ -197,6 +217,18 @@ function calculatePNG(isFormative) {
     function gradePhy(score){if(score>=75)return 4;if(score>=70)return 3.67;if(score>=65)return 3.33;if(score>=60)return 3;if(score>=55)return 2.67;if(score>=50)return 2.33;if(score>=45)return 2;if(score>=40)return 1.67;if(score>=35)return 1.33;if(score>=30)return 1;return 0;}
     function gradeChem(score){return gradePhy(score);}
     function gradeBio(score){return gradePhy(score);}
+    function gradeAkaun(score){
+    if(score >= 85) return 4;
+    else if(score >= 80) return 3.67;
+    else if(score >= 75) return 3.33;
+    else if(score >= 70) return 3;
+    else if(score >= 65) return 2.67;
+    else if(score >= 60) return 2.33;
+    else if(score >= 55) return 2;
+    else if(score >= 50) return 1.67;
+    else if(score >= 45) return 1.33;
+    else return 0;
+}
     function gradeSej(score){if(score>=85)return 4;if(score>=80)return 3.67;if(score>=75)return 3.33;if(score>=70)return 3;if(score>=65)return 2.67;if(score>=60)return 2.33;if(score>=55)return 2;if(score>=50)return 1.67;if(score>=45)return 1.33;if(score>=40)return 1;return 0;}
     function gradeIslam(score){return gradeSej(score);}
     function gradePJ(score){return gradeSej(score);}
@@ -207,10 +239,19 @@ function calculatePNG(isFormative) {
     let Admt = gradeAddMath(addmath)*6;
     let Sic = gradePhy(phy)*6;
     let Kim = gradeChem(chem)*6;
-    let Gy = gradeBio(bio)*6;
     let Sj = gradeSej(sej)*4;
     let Pi = gradeIslam(islam)*5;
+    let subjekDipilih = document.getElementById("subjek").value;
+    let Gy;
+    if(subjekDipilih === "bio") {
+        Gy = gradeBio(bio)*6;
+    } else if(subjekDipilih === "akaun") {
+        Gy = gradeAkaun(bio)*6; 
+    }
     let Pe = isFormative ? 0 : gradePJ(pjMark) * pjCredit;
+    
+
+
 
     let total = Bm+Bi+Mt+Admt+Sic+Kim+Gy+Sj+Pi+Pe;
     let purata = total / (51 + parseInt(pjCredit));
