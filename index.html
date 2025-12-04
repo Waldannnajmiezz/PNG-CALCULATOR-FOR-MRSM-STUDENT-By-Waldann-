@@ -20,6 +20,17 @@
     label { display: block; margin: 8px 0 3px 0; font-weight: normal; }
     input[type="text"], input[type="number"] { padding: 5px; width: 120px; text-align: center; font-size: 16px; }
     button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; }
+
+    @media (max-width: 600px) {
+    #badgeCapsule {
+        top: 60px !important; 
+        transform: scale(0.9); /* kecikkan sikit kalau nak */
+    }
+
+    h1 {
+        margin-top: 40px; /* bagi ruang supaya tak sentuh capsule */
+    }
+}
 </style>
 </head>
 <body>
