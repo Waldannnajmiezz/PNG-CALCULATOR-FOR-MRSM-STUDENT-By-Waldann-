@@ -20,15 +20,16 @@
     label { display: block; margin: 8px 0 3px 0; font-weight: normal; }
     input[type="text"], input[type="number"] { padding: 5px; width: 120px; text-align: center; font-size: 16px; }
     button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; }
-
-    @media (max-width: 600px) {
+    
     #badgeCapsule {
-        top: 60px !important; 
-        transform: scale(0.9); /* kecikkan sikit kalau nak */
-    }
-
+    left: 50% !important;
+    right: auto !important;
+    top: 20px !important;
+    transform: translateX(-50%);
+}
+ 
     h1 {
-        margin-top: 40px; /* bagi ruang supaya tak sentuh capsule */
+        margin-top: 120px;
     }
 }
 </style>
@@ -225,7 +226,266 @@ function calculatePNG(isFormative) {
 <!-- Tutorial Modal -->
 <button id="openTutorial" style="
 position: fixed;
-top: 75px;
+top: 15px;
+right: 15px;
+padding: 8px 14px;
+background: rgba(255,255,255,0.6);
+border: none;
+border-radius: 6px;
+backdrop-filter: blur(6px);
+cursor: pointer;
+">
+Tutorial 🎥
+</button>
+<div id="tutorialModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter: blur(3px); justify-content:center; align-items:center;">
+<div style="background:white; padding:15px; border-radius:10px; width:90%; max-width:500px; text-align:center;">
+<h3>User Tutorial</h3>
+<video id="tutoVideo" width="100%" controls >
+<source src="Tutorial.mp4" type="video/mp4">
+</video>
+<br><br>
+<button id="closeTutorial" style="padding:7px 18px; background:#ff4f4f; border:none; border-radius:5px; color:white; cursor:pointer;">Close ✖️</button>
+</div></div>
+
+<script>
+window.onload = () => { document.getElementById("tutorialModal").style.display = "flex"; }
+document.getElementById("openTutorial").onclick = () => { document.getElementById("tutorialModal").style.display = "flex"; }
+document.getElementById("closeTutorial").onclick = () => {
+    let video = document.getElementById("tutoVideo");
+    video.pause(); video.currentTime = 0;
+    document.getElementById("tutorialModal").style.display = "none";
+}
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRSM PNG Calculator (Upperform)</title>
+<link rel="icon" href="Icon.PNG" type="image/png">   
+<style>
+    body {
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("bg.JPG");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: white;
+    }
+    h1 { margin-bottom: 5px; }
+    .section { margin: 15px 0; }
+    label { display: block; margin: 8px 0 3px 0; font-weight: normal; }
+    input[type="text"], input[type="number"] { padding: 5px; width: 120px; text-align: center; font-size: 16px; }
+    button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; }
+    
+    #badgeCapsule {
+    left: 50% !important;
+    right: auto !important;
+    top: 20px !important;
+    transform: translateX(-50%);
+}
+ 
+    h1 {
+        margin-top: 120px;
+    }
+}
+</style>
+</head>
+<body>
+<!-- Badge Capsule -->
+<div id="badgeCapsule" style="
+position: fixed;
+top: 15px;
+right: 15px; 
+padding: 10px 20px;
+background: rgba(255,255,255,0.75);
+border-radius: 40px;
+backdrop-filter: blur(8px);
+display: flex;
+align-items: center;
+gap: 18px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+">
+
+    <img src="MARA.png" style="height:38px;">
+    <img src="MRSM.png" style="height:38px;">
+    <img src="IMG_1460.webp" style="height:33px;">
+</div>
+
+<!-- Feedback Button -->
+<button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeJATuW1pIzKaQjklqg8FY0KBRCVHVKNHlX9sUPhS4mX-17Ag/viewform?usp=dialog'"
+style="
+position: fixed;
+top: 15px;
+left: 15px;
+padding: 8px 14px;
+background: rgba(255,255,255,0.6);
+border: none;
+border-radius: 6px;
+backdrop-filter: blur(6px);
+cursor: pointer;
+font-weight: normal;
+">
+Feedback 📝
+</button>    
+<h1>PNG Calculator</h1>
+<h3>Upperform Student</h3>
+
+
+<div class="section">
+<label>Exam:</label>
+<input type="radio" id="formative-no" name="formative" value="Tidak" checked onclick="toggleExtraFields(false)"> Formative
+<input type="radio" id="formative-yes" name="formative" value="Ya" onclick="toggleExtraFields(true)"> Semester
+</div>
+
+<div class="section">
+<span>Your name:</span>
+<input type="text" id="nama" style="height:12px;">
+</div>
+
+<div class="section">
+<label for="melayu">Bahasa Melayu📚</label>
+<input type="number" id="melayu" style="height:12px;">
+<label for="inggeris">English📖</label>
+<input type="number" id="inggeris" style="height:12px;">
+<label for="islam">Pendidikan Islam🕌</label>
+<input type="number" id="islam" style="height:12px;">
+<label for="sej">Sejarah📜</label>
+<input type="number" id="sej" style="height:12px;">
+<label for="math">Mathematics🧮</label>
+<input type="number" id="math" style="height:12px;">
+<label for="addmath">Additional Mathematics🧮</label>
+<input type="number" id="addmath" style="height:12px;">
+<label for="phy">Physics🔭</label>
+<input type="number" id="phy" style="height:12px;">
+<label for="chem">Chemistry🧪</label>
+<input type="number" id="chem" style="height:12px;">
+<label for="bio">Biology🧬/Prinsip Perakaunan💵</label>
+<input type="number" id="bio" style="height:12px; width:250px">
+
+<div id="extra-fields" style="display:none;">
+
+    <label for="pj">Pendidikan Jasmani & Kesihatan⚽️</label>
+    <input type="number" id="pj" style="height:12px; width:120px;">
+
+    <br><br>
+
+    <label>Credit Hour for PJK:</label>
+    <input type="radio" name="pjcredit" id="pj2" value="2" checked> 2
+    <input type="radio" name="pjcredit" id="pj3" value="3"> 3 
+
+</div>
+</div>
+
+<br>
+<button onclick="calculatePNG(document.getElementById('formative-no').checked)">Calculate PNG🔎</button>
+
+<center>
+<p><small><small>'MJSC Tepen' product<br>Waldann, Azriff & Adlann</small></small></p>
+<h3>Result:</h3>
+<p id="result"></p>
+<p id="message"></p>
+</center>
+
+<script>
+// Toggle PJ field
+function toggleExtraFields(show) { 
+    document.getElementById('extra-fields').style.display = show ? 'block' : 'none'; 
+}
+
+// Limit semua input number ke 0–100 & block huruf
+document.querySelectorAll('input[type="number"]').forEach(input => {
+    input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^0-9]/g, '');
+        if(input.value > 100) input.value = 100;
+        if(input.value < 0) input.value = 0;
+    });
+});
+
+// Kalkulator + submit Google Form
+function calculatePNG(isFormative) {
+
+    let nama = document.getElementById("nama").value;
+    let inputs = ["melayu","inggeris","math","addmath","phy","chem","bio","sej","islam"];
+    if(!isFormative) inputs.push("pj");
+
+    for(let id of inputs){
+        let val = document.getElementById(id).value;
+        if(val === "") { alert("Please fill in your marks before you can calculate your PNG!"); return; }
+    }
+
+    let melayu = parseFloat(document.getElementById("melayu").value);
+    let inggeris = parseFloat(document.getElementById("inggeris").value);
+    let math = parseFloat(document.getElementById("math").value);
+    let addmath = parseFloat(document.getElementById("addmath").value);
+    let phy = parseFloat(document.getElementById("phy").value);
+    let chem = parseFloat(document.getElementById("chem").value);
+    let bio = parseFloat(document.getElementById("bio").value);
+    let sej = parseFloat(document.getElementById("sej").value);
+    let islam = parseFloat(document.getElementById("islam").value);
+
+    let pjMark = isFormative ? 0 : parseFloat(document.getElementById("pj").value);
+    let pjCredit = isFormative ? 0 : parseInt(document.querySelector('input[name="pjcredit"]:checked').value);
+
+    function gradeBM(score){if(score>=85)return 4;if(score>=80)return 3.67;if(score>=75)return 3.33;if(score>=70)return 3;if(score>=65)return 2.67;if(score>=60)return 2.33;if(score>=55)return 2;if(score>=50)return 1.67;if(score>=45)return 1.33;if(score>=40)return 1;return 0;}
+    function gradeBI(score){if(score>=80)return 4;if(score>=75)return 3.67;if(score>=70)return 3.33;if(score>=65)return 3;if(score>=60)return 2.67;if(score>=55)return 2.33;if(score>=50)return 2;if(score>=45)return 1.67;if(score>=40)return 1.33;if(score>=35)return 1;return 0;}
+    function gradeMath(score){return gradeBI(score);}
+    function gradeAddMath(score){if(score>=75)return 4;if(score>=65)return 3.67;if(score>=60)return 3.33;if(score>=55)return 3;if(score>=50)return 2.67;if(score>=45)return 2.33;if(score>=40)return 2;if(score>=35)return 1.67;if(score>=30)return 1.33;if(score>=25)return 1;return 0;}
+    function gradePhy(score){if(score>=75)return 4;if(score>=70)return 3.67;if(score>=65)return 3.33;if(score>=60)return 3;if(score>=55)return 2.67;if(score>=50)return 2.33;if(score>=45)return 2;if(score>=40)return 1.67;if(score>=35)return 1.33;if(score>=30)return 1;return 0;}
+    function gradeChem(score){return gradePhy(score);}
+    function gradeBio(score){return gradePhy(score);}
+    function gradeSej(score){if(score>=85)return 4;if(score>=80)return 3.67;if(score>=75)return 3.33;if(score>=70)return 3;if(score>=65)return 2.67;if(score>=60)return 2.33;if(score>=55)return 2;if(score>=50)return 1.67;if(score>=45)return 1.33;if(score>=40)return 1;return 0;}
+    function gradeIslam(score){return gradeSej(score);}
+    function gradePJ(score){return gradeSej(score);}
+
+    let Bm = gradeBM(melayu)*6;
+    let Bi = gradeBI(inggeris)*6;
+    let Mt = gradeMath(math)*6;
+    let Admt = gradeAddMath(addmath)*6;
+    let Sic = gradePhy(phy)*6;
+    let Kim = gradeChem(chem)*6;
+    let Gy = gradeBio(bio)*6;
+    let Sj = gradeSej(sej)*4;
+    let Pi = gradeIslam(islam)*5;
+    let Pe = isFormative ? 0 : gradePJ(pjMark) * pjCredit;
+
+    let total = Bm+Bi+Mt+Admt+Sic+Kim+Gy+Sj+Pi+Pe;
+    let purata = total / (51 + parseInt(pjCredit));
+    document.getElementById("result").innerHTML = "PNG anda ialah: " + purata.toFixed(3);
+
+    let message = "";
+    if(purata===4){message="Congratulations"+nama+"!, You got a 4.00 flat this exam. Keep up the good work!";}
+    else if(purata>=3.50){message="Congratulations"+nama+"!, Keep up your good work.";}
+    else if(purata>=3){message="You have done your best, "+nama+"! Try again in the next exam.";}
+    else{message="Don't give up, "+nama+". Study harder and you'll get better results.";}
+    document.getElementById("message").innerHTML = message;
+
+    // Google Form auto-submit (still working)
+    const url = "https://docs.google.com/forms/d/e/1FAIpQLSeFtGBcFWNTQuCfbTunzeAWa4MdY7mUTkp01sUUYYGU_JUwMw/formResponse";
+    const formData = new FormData();
+    formData.append("entry.218510410", nama);
+    formData.append("entry.1361796752", melayu);
+    formData.append("entry.1742954856", inggeris);
+    formData.append("entry.610405405", math);
+    formData.append("entry.751682377", addmath);
+    formData.append("entry.750948869", phy);
+    formData.append("entry.644863431", chem);
+    formData.append("entry.879483574", bio);
+    formData.append("entry.1079830362", sej);
+    formData.append("entry.401383712", islam);
+    formData.append("entry.34491633", pjMark);
+    formData.append("entry.1763271432", purata.toFixed(3));
+    fetch(url, { method: "POST", mode: "no-cors", body: formData });
+
+}
+</script>
+
+<!-- Tutorial Modal -->
+<button id="openTutorial" style="
+position: fixed;
+top: 15px;
 right: 15px;
 padding: 8px 14px;
 background: rgba(255,255,255,0.6);
