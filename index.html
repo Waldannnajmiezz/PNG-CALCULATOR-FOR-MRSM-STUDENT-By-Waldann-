@@ -20,6 +20,22 @@
     label { display: block; margin: 8px 0 3px 0; font-weight: normal; }
     input[type="text"], input[type="number"] { padding: 5px; width: 120px; text-align: center; font-size: 16px; }
     button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; }
+
+    #topBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px; /* adjust ikut selesa */
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 999;
+}
     
     #badgeCapsule {
     left: 50% !important;
