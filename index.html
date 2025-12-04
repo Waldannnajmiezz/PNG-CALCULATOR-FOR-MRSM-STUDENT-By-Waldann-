@@ -140,8 +140,10 @@ function updatePlaceholder(){
   const input = document.getElementById("markah");
   if(subjek === "bio"){
     input.placeholder = "Masukkan markah Biologi";
+    input.disabled = false;
   } else if(subjek === "akaun"){
     input.placeholder = "Masukkan markah Akaun";
+    input.disabled = false;
   }
 }
 </script>
@@ -158,7 +160,7 @@ function updatePlaceholder(){
     <input type="radio" name="pjcredit" id="pj3" value="3"> 3 
 
 </div>
-</div>
+
 
 <br>
 <button onclick="calculatePNG(document.getElementById('formative-no').checked)">Calculate PNG🔎</button>
@@ -187,15 +189,34 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
 
 // Kalkulator + submit Google Form
 function calculatePNG(isFormative) {
+    
+    
+    
+    
 
     let nama = document.getElementById("nama").value;
-    let inputs = ["melayu","inggeris","math","addmath","phy","chem","bio","sej","islam"];
+    
+    let inputs = ["melayu","inggeris","math","addmath","phy","chem","markah","sej","islam"]; 
     if(!isFormative) inputs.push("pj");
 
     for(let id of inputs){
-        let val = document.getElementById(id).value;
-        if(val === "") { alert("Please fill in your marks before you can calculate your PNG!"); return; }
+        let element = document.getElementById(id);
+        
+        if(element && element.value === "") {
+            
+            alert("Please fill in your marks before you can calculate your PNG!"); 
+            return; 
+        } else if (!element) {
+            
+        }
     }
+
+
+
+
+
+
+
 
     let melayu = parseFloat(document.getElementById("melayu").value);
     let inggeris = parseFloat(document.getElementById("inggeris").value);
@@ -217,17 +238,7 @@ function calculatePNG(isFormative) {
     function gradePhy(score){if(score>=75)return 4;if(score>=70)return 3.67;if(score>=65)return 3.33;if(score>=60)return 3;if(score>=55)return 2.67;if(score>=50)return 2.33;if(score>=45)return 2;if(score>=40)return 1.67;if(score>=35)return 1.33;if(score>=30)return 1;return 0;}
     function gradeChem(score){return gradePhy(score);}
     function gradeBio(score){return gradePhy(score);}
-    function gradeAkaun(score){
-    if(score >= 85) return 4;
-    else if(score >= 80) return 3.67;
-    else if(score >= 75) return 3.33;
-    else if(score >= 70) return 3;
-    else if(score >= 65) return 2.67;
-    else if(score >= 60) return 2.33;
-    else if(score >= 55) return 2;
-    else if(score >= 50) return 1.67;
-    else if(score >= 45) return 1.33;
-    else return 0;
+    function gradeAkaun(score){if(score >= 85) return 4;if(score >= 80) return 3.67;if(score >= 75) return 3.33;if(score >= 70) return 3;if(score >= 65) return 2.67;if(score >= 60) return 2.33;if(score >= 55) return 2;if(score >= 50) return 1.67;if(score >= 45) return 1.33;return 0;
 }
     function gradeSej(score){if(score>=85)return 4;if(score>=80)return 3.67;if(score>=75)return 3.33;if(score>=70)return 3;if(score>=65)return 2.67;if(score>=60)return 2.33;if(score>=55)return 2;if(score>=50)return 1.67;if(score>=45)return 1.33;if(score>=40)return 1;return 0;}
     function gradeIslam(score){return gradeSej(score);}
