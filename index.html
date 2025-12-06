@@ -3,97 +3,177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MRSM PNG Calculator (Upperform)</title>
+<title>MRSM PNG Calculator (Upper form)</title>
 <link rel="icon" href="Icon.PNG" type="image/png">   
 <style>
-    body {
-        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("bg.JPG");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        text-align: center;
-        font-family: Arial, sans-serif;
-        color: white;
-    }
-    h1 { margin-bottom: 5px; }
-    .section { margin: 15px 0; }
-    label { display: block; margin: 8px 0 3px 0; font-weight: normal; }
-    input[type="text"], input[type="number"] { padding: 5px; width: 120px; text-align: center; font-size: 16px; }
-    button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; }
+body {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("bg.JPG");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+h1 { margin-bottom: 5px; margin-top: 120px; }
+.section { margin: 15px 0; }
+label { display: block; margin: 8px 0 3px 0; font-weight: normal; }
+input[type="text"], input[type="number"] { padding: 5px; width: 120px; text-align: center; font-size: 16px; height:12px; }
+button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; }
 
-    #topBar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 90px; /* adjust ikut selesa */
-        background: rgba(255,255,255,0.75);
-        backdrop-filter: blur(8px);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 0;
-        
-        
+/* Topbar fix */
+#topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 999;
 }
-    
-    #badgeCapsule {
-    left: 50% !important;
-    right: auto !important;
-    top: 20px !important;
+#logoGroup {
+    position: fixed;
+    top: 15px;
+    left: 15px; 
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.75);
+    border-radius: 40px;
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+#topbarTitle { 
+    position: absolute;
+    left: 49.2%;
     transform: translateX(-50%);
+    font-weight: bold; 
+    font-size: 30px; 
+    color: #000; 
 }
- 
-    h1 {
-        margin-top: 120px;
+
+#menuContainer {
+    position: absolute;
+    top: 10px;    /* jarak dari atas topbar */
+    right: 50px;  /* jarak dari kanan topbar */
+    display: flex;
+    align-items: center;
+}
+#menuDropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    text-align: left;
+    min-width: 150px;
+    z-index: 1000;
+}
+#result, #message { margin-top:10px; font-size:18px; font-weight:bold; }
+
+/* ======================================================= */
+/* 🔥 MOBILE RESPONSIVENESS FIXES (Screen <= 600px) 🔥 */
+/* ======================================================= */
+@media (max-width: 600px) {
+    /* 1. Adjust the main Topbar container for stacking */
+    #topBar {
+        height: 140px; /* Give more vertical space for stacking */
+        flex-direction: column; /* Stack items vertically */
+        justify-content: space-evenly; /* Evenly space the stacked items */
+        padding: 5px; /* Adjust padding */
+    }
+    
+    /* 2. Fix the Logo Group positioning */
+    #logoGroup {
+        position: static; /* Make it flow normally within the flex container */
+        top: auto;
+        left: auto;
+        padding: 5px 10px; 
+        /* Make it take up the full width of the topBar */
+        width: calc(100% - 20px); 
+        justify-content: center; /* Center the logos */
+    }
+
+    /* 3. Fix the Title positioning */
+    #topbarTitle { 
+        position: static; /* Make it flow normally */
+        left: auto;
+        transform: none; /* Remove the horizontal centering transform */
+        font-size: 24px; /* Reduce font size for small screens */
+        order: 2; /* Place it below the logos */
+    }
+
+    /* 4. Fix the Menu Button positioning */
+    #menuContainer {
+        position: static; /* Make it flow normally */
+        top: auto;
+        right: auto;
+        order: 3; /* Place it last */
+        margin-top: 5px; 
+    }
+
+    /* 5. Adjust the body margin to account for the taller topbar */
+    body {
+        /* This margin ensures the content starts below the fixed top bar */
+        margin-top: 130px; 
+    }
+    
+    /* 6. Fix the input fields which are too wide on mobile */
+    input[type="text"], input[type="number"] { 
+        width: 150px; /* Adjust width to look better on a narrow screen */
+    }
+    
+    /* Fix the specific wide input for markah */
+    #markah {
+        width: calc(100% - 20px) !important; /* Make it nearly full width */
+        max-width: 250px;
+    }
+    
+    /* Fix modal width for better viewing */
+    #tutorialModal > div {
+        width: 95% !important;
+        max-width: 400px !important;
     }
 }
 </style>
 </head>
 <body>
-<div id='topBar'></div>
 
-<!-- Badge Capsule -->
-<div id="badgeCapsule" style="
-position: fixed;
-top: 15px;
-right: 15px; 
-padding: 10px 20px;
-background: rgba(255,255,255,0.75);
-border-radius: 40px;
-backdrop-filter: blur(8px);
-display: flex;
-align-items: center;
-gap: 18px;
-box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-">
-
-    <img src="MARA.png" style="height:38px;">
-    <img src="MRSM.png" style="height:38px;">
-    <img src="IMG_1460.webp" style="height:33px;">
+<div id="topBar">
+    <div id="logoGroup">
+        <img src="MARA.png" style="height:38px;">
+        <img src="MRSM.png" style="height:38px;">
+        <img src="IMG_1460.webp" style="height:33px;">
+    </div>
+    <div id="topbarTitle">PNG Calculator</div>
+    <div id="menuContainer">
+        <button id="menuButton" style="
+            padding: 8px 14px;
+            background: rgba(255,255,255,0.6);
+            border: none;
+            border-radius: 6px;
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+            font-weight: normal;
+        ">Menu ⋮</button>
+        <div id="menuDropdown">
+            <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeJATuW1pIzKaQjklqg8FY0KBRCVHVKNHlX9sUPhS4mX-17Ag/viewform?usp=dialog','_blank')" style="display:block; width:100%; margin-bottom:5px;">Feedback 📝</button>
+            <button onclick="document.getElementById('tutorialModal').style.display='flex'" style="display:block; width:100%;">Tutorial 🎥</button>
+        </div>
+    </div>
 </div>
-
-<!-- Feedback Button -->
-<button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeJATuW1pIzKaQjklqg8FY0KBRCVHVKNHlX9sUPhS4mX-17Ag/viewform?usp=dialog'"
-style="
-position: fixed;
-top: 15px;
-left: 15px;
-padding: 8px 14px;
-background: rgba(255,255,255,0.6);
-border: none;
-border-radius: 6px;
-backdrop-filter: blur(6px);
-cursor: pointer;
-font-weight: normal;
-">
-Feedback 📝
-</button>    
-<h1>PNG Calculator</h1>
-<h3>Upperform Student</h3>
-
+<br><br><br><br><br>
+<h3>Upper form Student</h3>
 
 <div class="section">
 <label>Exam:</label>
@@ -131,36 +211,17 @@ Feedback 📝
     <option value="akaun">Prinsip Perakaunan</option>
   </select>
   <br><br>
-  <input type="number" id="markah" placeholder="Masukkan markah" style="height:12px; width:250px">
+  <input type="number" id="markah" placeholder="Fill in your mark" style="height:12px; width:250px">
 </div>
 
-<script>
-function updatePlaceholder(){
-  const subjek = document.getElementById("subjek").value;
-  const input = document.getElementById("markah");
-  if(subjek === "bio"){
-    input.placeholder = "Masukkan markah Biologi";
-    input.disabled = false;
-  } else if(subjek === "akaun"){
-    input.placeholder = "Masukkan markah Akaun";
-    input.disabled = false;
-  }
-}
-</script>
-
 <div id="extra-fields" style="display:none;">
-
     <label for="pj">Pendidikan Jasmani & Kesihatan⚽️</label>
     <input type="number" id="pj" style="height:12px; width:120px;">
-
     <br><br>
-
     <label>Credit Hour for PJK:</label>
     <input type="radio" name="pjcredit" id="pj2" value="2" checked> 2
     <input type="radio" name="pjcredit" id="pj3" value="3"> 3 
-
 </div>
-
 
 <br>
 <button onclick="calculatePNG(document.getElementById('formative-no').checked)">Calculate PNG🔎</button>
@@ -171,6 +232,16 @@ function updatePlaceholder(){
 <p id="result"></p>
 <p id="message"></p>
 </center>
+
+<div id="tutorialModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter: blur(3px); justify-content:center; align-items:center;">
+<div style="background:white; padding:15px; border-radius:10px; width:90%; max-width:500px; text-align:center;">
+<h3>User Tutorial</h3>
+<video id="tutoVideo" width="100%" controls >
+<source src="Tutorial.mp4" type="video/mp4">
+</video>
+<br><br>
+<button id="closeTutorial" style="padding:7px 18px; background:#ff4f4f; border:none; border-radius:5px; color:white; cursor:pointer;">Close ✖️</button>
+</div></div>
 
 <script>
 // Toggle PJ field
@@ -187,36 +258,27 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
     });
 });
 
-// Kalkulator + submit Google Form
-function calculatePNG(isFormative) {
-    
-    
-    
-    
+// Update placeholder untuk subjek
+function updatePlaceholder(){
+  const subjek = document.getElementById("subjek").value;
+  const input = document.getElementById("markah");
+  if(subjek === "bio"){ input.placeholder = "Biology"; input.disabled = false; }
+  else if(subjek === "akaun"){ input.placeholder = "Akaun"; input.disabled = false; }
+}
 
+// Kalkulator PNG
+function calculatePNG(isFormative) {
     let nama = document.getElementById("nama").value;
-    
     let inputs = ["melayu","inggeris","math","addmath","phy","chem","markah","sej","islam"]; 
     if(!isFormative) inputs.push("pj");
 
     for(let id of inputs){
         let element = document.getElementById(id);
-        
         if(element && element.value === "") {
-            
             alert("Please fill in your marks before you can calculate your PNG!"); 
             return; 
-        } else if (!element) {
-            
         }
     }
-
-
-
-
-
-
-
 
     let melayu = parseFloat(document.getElementById("melayu").value);
     let inggeris = parseFloat(document.getElementById("inggeris").value);
@@ -227,7 +289,6 @@ function calculatePNG(isFormative) {
     let bio = parseFloat(document.getElementById("markah").value);
     let sej = parseFloat(document.getElementById("sej").value);
     let islam = parseFloat(document.getElementById("islam").value);
-
     let pjMark = isFormative ? 0 : parseFloat(document.getElementById("pj").value);
     let pjCredit = isFormative ? 0 : parseInt(document.querySelector('input[name="pjcredit"]:checked').value);
 
@@ -238,8 +299,7 @@ function calculatePNG(isFormative) {
     function gradePhy(score){if(score>=75)return 4;if(score>=70)return 3.67;if(score>=65)return 3.33;if(score>=60)return 3;if(score>=55)return 2.67;if(score>=50)return 2.33;if(score>=45)return 2;if(score>=40)return 1.67;if(score>=35)return 1.33;if(score>=30)return 1;return 0;}
     function gradeChem(score){return gradePhy(score);}
     function gradeBio(score){return gradePhy(score);}
-    function gradeAkaun(score){if(score >= 85) return 4;if(score >= 80) return 3.67;if(score >= 75) return 3.33;if(score >= 70) return 3;if(score >= 65) return 2.67;if(score >= 60) return 2.33;if(score >= 55) return 2;if(score >= 50) return 1.67;if(score >= 45) return 1.33;return 0;
-}
+    function gradeAkaun(score){if(score >= 85) return 4;if(score >= 80) return 3.67;if(score >= 75) return 3.33;if(score >= 70) return 3;if(score >= 65) return 2.67;if(score >= 60) return 2.33;if(score >= 55) return 2;if(score >= 50) return 1.67;if(score >= 45) return 1.33;return 0;}
     function gradeSej(score){if(score>=85)return 4;if(score>=80)return 3.67;if(score>=75)return 3.33;if(score>=70)return 3;if(score>=65)return 2.67;if(score>=60)return 2.33;if(score>=55)return 2;if(score>=50)return 1.67;if(score>=45)return 1.33;if(score>=40)return 1;return 0;}
     function gradeIslam(score){return gradeSej(score);}
     function gradePJ(score){return gradeSej(score);}
@@ -253,29 +313,21 @@ function calculatePNG(isFormative) {
     let Sj = gradeSej(sej)*4;
     let Pi = gradeIslam(islam)*5;
     let subjekDipilih = document.getElementById("subjek").value;
-    let Gy;
-    if(subjekDipilih === "bio") {
-        Gy = gradeBio(bio)*6;
-    } else if(subjekDipilih === "akaun") {
-        Gy = gradeAkaun(bio)*6; 
-    }
+    let Gy = subjekDipilih === "bio" ? gradeBio(bio)*6 : gradeAkaun(bio)*6;
     let Pe = isFormative ? 0 : gradePJ(pjMark) * pjCredit;
-    
-
-
 
     let total = Bm+Bi+Mt+Admt+Sic+Kim+Gy+Sj+Pi+Pe;
     let purata = total / (51 + parseInt(pjCredit));
     document.getElementById("result").innerHTML = "PNG anda ialah: " + purata.toFixed(3);
 
     let message = "";
-    if(purata===4){message="Congratulations"+nama+"!, You got a 4.00 flat this exam. Keep up the good work!";}
-    else if(purata>=3.50){message="Congratulations"+nama+"!, Keep up your good work.";}
+    if(purata===4){message="Congratulations "+nama+"!, You got a 4.00 flat this exam. Keep up the good work!";}
+    else if(purata>=3.50){message="Congratulations "+nama+"!, Keep up your good work.";}
     else if(purata>=3){message="You have done your best, "+nama+"! Try again in the next exam.";}
     else{message="Don't give up, "+nama+". Study harder and you'll get better results.";}
     document.getElementById("message").innerHTML = message;
 
-    // Google Form auto-submit (still working)
+    // Google Form auto-submit
     const url = "https://docs.google.com/forms/d/e/1FAIpQLSeFtGBcFWNTQuCfbTunzeAWa4MdY7mUTkp01sUUYYGU_JUwMw/formResponse";
     const formData = new FormData();
     formData.append("entry.218510410", nama);
@@ -291,42 +343,26 @@ function calculatePNG(isFormative) {
     formData.append("entry.34491633", pjMark);
     formData.append("entry.1763271432", purata.toFixed(3));
     fetch(url, { method: "POST", mode: "no-cors", body: formData });
-
 }
-</script>
 
-<!-- Tutorial Modal -->
-<button id="openTutorial" style="
-position: fixed;
-top: 15px;
-right: 15px;
-padding: 8px 14px;
-background: rgba(255,255,255,0.6);
-border: none;
-border-radius: 6px;
-backdrop-filter: blur(6px);
-cursor: pointer;
-">
-Tutorial 🎥
-</button>
-<div id="tutorialModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter: blur(3px); justify-content:center; align-items:center;">
-<div style="background:white; padding:15px; border-radius:10px; width:90%; max-width:500px; text-align:center;">
-<h3>User Tutorial</h3>
-<video id="tutoVideo" width="100%" controls >
-<source src="Tutorial.mp4" type="video/mp4">
-</video>
-<br><br>
-<button id="closeTutorial" style="padding:7px 18px; background:#ff4f4f; border:none; border-radius:5px; color:white; cursor:pointer;">Close ✖️</button>
-</div></div>
+// Menu JS
+const menuButton = document.getElementById("menuButton");
+const menuDropdown = document.getElementById("menuDropdown");
+menuButton.onclick = () => { menuDropdown.style.display = menuDropdown.style.display === "block" ? "none" : "block"; }
+window.onclick = function(e) {
+  if (!document.getElementById("menuContainer").contains(e.target)) {
+    menuDropdown.style.display = "none";
+  }
+}
 
-<script>
+// Tutorial Modal JS
 window.onload = () => { document.getElementById("tutorialModal").style.display = "flex"; }
-document.getElementById("openTutorial").onclick = () => { document.getElementById("tutorialModal").style.display = "flex"; }
 document.getElementById("closeTutorial").onclick = () => {
     let video = document.getElementById("tutoVideo");
     video.pause(); video.currentTime = 0;
     document.getElementById("tutorialModal").style.display = "none";
 }
 </script>
+
 </body>
 </html>
