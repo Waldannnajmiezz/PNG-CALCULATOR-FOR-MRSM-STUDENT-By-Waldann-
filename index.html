@@ -49,22 +49,6 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
     gap: 18px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-
-/* ==================== LOGO FIX (ONLY THIS PART CHANGED) ==================== */
-#logoGroup img {
-    height: 100%;
-    max-height: 55px; /* desktop */
-    width: auto;
-}
-
-@media (max-width: 600px) {
-    #logoGroup img {
-        max-height: 30px; /* mobile */
-        width: auto;
-    }
-}
-/* =========================================================================== */
-
 #topbarTitle { 
     position: absolute;
     left: 49.2%;
@@ -94,7 +78,6 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
     min-width: 150px;
     z-index: 1000;
 }
-
 #result, #message { margin-top:10px; font-size:18px; font-weight:bold; }
 
 
@@ -115,6 +98,18 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
         justify-content: flex-start;
     }
 
+    #logoGroup img {
+    height: 100%;
+    max-height: 55px; /* Desktop */
+    width: auto;
+    }
+
+    @media (max-width: 600px) {
+        #logoGroup img {
+            max-height: 30px; /* Mobile */
+        }
+    }
+
     #menuContainer {
         position: static;
         flex-shrink: 1;
@@ -133,7 +128,6 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
     input[type="text"], input[type="number"] { 
         width: 120px;
     }
-
     #markah {
         width: 120px !important;
         max-width: 120px;
@@ -143,8 +137,9 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
         width: 95% !important;
         max-width: 400px !important;
     }
-}
+}    
     
+  
 </style>
 </head>
 <body>
