@@ -80,13 +80,10 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
 }
 #result, #message { margin-top:10px; font-size:18px; font-weight:bold; }
 
-/* ======================================================= */
-/* 🔥 MOBILE RESPONSIVENESS FIXES (Screen <= 600px) 🔥 */
-/* ======================================================= */
+
 @media (max-width: 600px) {
-    /* Keep everything in one horizontal line */
     #topBar {
-        height: 60px; 
+        height: 45px; 
         flex-direction: row; 
         justify-content: space-between;
         padding: 5px 10px;
@@ -96,12 +93,14 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
         position: static;
         width: auto;
         padding: 0;
-        gap: 8px; 
+        gap: 8px;
         flex-shrink: 1;
         justify-content: flex-start;
     }
+
     #logoGroup img {
-        max-height: 28px; 
+        height: 50%;    /* ikut tinggi topbar (fluid) */
+        width: auto;    /* maintain ratio, TAK melebar */
     }
 
     #menuContainer {
@@ -111,12 +110,12 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
         margin: 0;
     }
     #menuContainer button {
-        padding: 4px 8px;
-        font-size: 14px;
+        padding: 3px 6px;
+        font-size: 12px;
     }
 
     body {
-        margin-top: 65px;
+        margin-top: 55px;
     }
 
     input[type="text"], input[type="number"] { 
@@ -131,7 +130,9 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
         width: 95% !important;
         max-width: 400px !important;
     }
-}
+}    
+    
+  
 </style>
 </head>
 <body>
