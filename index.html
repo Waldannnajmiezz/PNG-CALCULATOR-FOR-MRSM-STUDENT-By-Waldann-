@@ -90,13 +90,16 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
     }
 
     #logoGroup {
-        position: 38px;
+        position: static;
         width: auto;
-        
+        padding: 0;
+        gap: 8px;
+        flex-shrink: 1;
+        justify-content: flex-start;
     }
 
     #logoGroup img {
-        height: 70%;    /* ikut tinggi topbar (fluid) */
+        height: 50%;    /* ikut tinggi topbar (fluid) */
         width: auto;    /* maintain ratio, TAK melebar */
     }
 
@@ -127,10 +130,6 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
         width: 95% !important;
         max-width: 400px !important;
     }
-    .logo {
-        height: 70%;    /* ikut tinggi topbar (fluid) */
-        width: auto;
-    }
 }    
     
   
@@ -140,8 +139,8 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
 
 <div id="topBar">
     <div id="logoGroup">
-        <img src="MRSM.png" class="logo">
-        <img src="IMG_1460.webp" class="logo">
+        <img src="MRSM.png" style="height:38px;">
+        <img src="IMG_1460.webp" style="height:33px;">
     </div>
     <div id="menuContainer">
         <button id="menuButton" style="
