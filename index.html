@@ -99,15 +99,8 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
     }
 
     #logoGroup img {
-    height: 100%;
-    max-height: 55px; /* Desktop */
-    width: auto;
-    }
-
-    @media (max-width: 600px) {
-        #logoGroup img {
-            max-height: 30px; /* Mobile */
-        }
+        height: 50%;    /* ikut tinggi topbar (fluid) */
+        width: auto;    /* maintain ratio, TAK melebar */
     }
 
     #menuContainer {
@@ -146,8 +139,8 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
 
 <div id="topBar">
     <div id="logoGroup">
-        <img src="MRSM.png" class ="logo">
-        <img src="IMG_1460.webp" class="logo">
+        <img src="MRSM.png" style="height:38px;">
+        <img src="IMG_1460.webp" style="height:33px;">
     </div>
     <div id="menuContainer">
         <button id="menuButton" style="
