@@ -4,10 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MRSM PNG Calculator (Upper form)</title>
+<meta property="og:image" content="Icon.PNG">
+<meta property="og:title" content="MRSM PNG Calculator">
+<meta property="og:description" content="TRACK your grade and SET your academic goals">    
 <link rel="icon" href="Icon.PNG" type="image/png">   
 <style>
 body {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("bg.JPG");
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("bg.JPG");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -99,12 +102,11 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
     }
 
     #logoGroup img {
-        height: 20px;    /* ikut tinggi topbar (fluid) */
-        width: auto;    /* maintain ratio, TAK melebar */
+        height: 20px;   
+        width: auto;    
     }
 
     #menuContainer {
-        /*position: static;*/
         flex-shrink: 1;
         justify-content: flex-end;
         position: absolute;
@@ -122,6 +124,12 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
 
     body {
         margin-top: 55px;
+
+    h1 {
+        margin-top: 60px
+        font-size: 24px
+
+        
     }
 
     input[type="text"], input[type="number"] { 
@@ -166,7 +174,7 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
 </div>
 
 
-<h1>NovaCalcX</h1>
+<h1>PNG Calculator</h1>
 
 <div class="section">
 <label>Exam:</label>
@@ -237,12 +245,10 @@ button { padding: 8px 16px; font-size: 16px; margin-top: 15px; cursor: pointer; 
 </div></div>
 
 <script>
-// Toggle PJ field
 function toggleExtraFields(show) { 
     document.getElementById('extra-fields').style.display = show ? 'block' : 'none'; 
 }
 
-// Limit semua input number ke 0–100 & block huruf
 document.querySelectorAll('input[type="number"]').forEach(input => {
     input.addEventListener('input', () => {
         input.value = input.value.replace(/[^0-9]/g, '');
@@ -251,7 +257,6 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
     });
 });
 
-// Update placeholder untuk subjek
 function updatePlaceholder(){
   const subjek = document.getElementById("subjek").value;
   const input = document.getElementById("markah");
@@ -259,7 +264,6 @@ function updatePlaceholder(){
   else if(subjek === "akaun"){ input.placeholder = "Akaun"; input.disabled = false; }
 }
 
-// Kalkulator PNG
 function calculatePNG(isFormative) {
     let nama = document.getElementById("nama").value;
     let inputs = ["melayu","inggeris","math","addmath","phy","chem","markah","sej","islam"]; 
@@ -320,25 +324,9 @@ function calculatePNG(isFormative) {
     else{message="Don't give up, "+nama+". Study harder and you'll get better results.";}
     document.getElementById("message").innerHTML = message;
 
-    // Google Form auto-submit
-    const url = "https://docs.google.com/forms/d/e/1FAIpQLSeFtGBcFWNTQuCfbTunzeAWa4MdY7mUTkp01sUUYYGU_JUwMw/formResponse";
-    const formData = new FormData();
-    formData.append("entry.218510410", nama);
-    formData.append("entry.1361796752", melayu);
-    formData.append("entry.1742954856", inggeris);
-    formData.append("entry.610405405", math);
-    formData.append("entry.751682377", addmath);
-    formData.append("entry.750948869", phy);
-    formData.append("entry.644863431", chem);
-    formData.append("entry.879483574", bio);
-    formData.append("entry.1079830362", sej);
-    formData.append("entry.401383712", islam);
-    formData.append("entry.34491633", pjMark);
-    formData.append("entry.1763271432", purata.toFixed(3));
-    fetch(url, { method: "POST", mode: "no-cors", body: formData });
+    
 }
 
-// Menu JS
 const menuButton = document.getElementById("menuButton");
 const menuDropdown = document.getElementById("menuDropdown");
 menuButton.onclick = () => { menuDropdown.style.display = menuDropdown.style.display === "block" ? "none" : "block"; }
@@ -348,7 +336,7 @@ window.onclick = function(e) {
   }
 }
 
-// Tutorial Modal JS
+
 window.onload = () => { document.getElementById("tutorialModal").style.display = "flex"; }
 document.getElementById("closeTutorial").onclick = () => {
     let video = document.getElementById("tutoVideo");
