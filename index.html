@@ -371,10 +371,13 @@ function pointerToGrade(p){
   if(p>=3.67)return "A-";
   if(p>=3.33)return "B+";
   if(p>=3.00)return "B";
-  if(p>=2.67)return "C+";
-  if(p>=2.33)return "C";
-  if(p>=2.00)return "D";
-  return "E";
+  if(p>=2.67)return "B-";
+  if(p>=2.33)return "C+";
+  if(p>=2.00)return "C";
+  if(p>=1.67)return "C-";
+  if(p>=1.33)return "D";
+  if(p>=1.00)return "E";
+  return "";
 }
 
 
